@@ -39,8 +39,9 @@ module SimpleCov
     #
     def coverage_path
       @coverage_path ||= begin
-        coverage_path = File.expand_path(coverage_dir, "/tmp")
-        FileUtils.rm_rf("/tmp/coverage")
+        coverage_path = File.expand_path(coverage_dir, root)
+        coverage_path = File.expand_path(coverage_dir, "/tmp") if !ENV['COVERAGE_REPORT'].blank?
+        FileUtils.rm_rf("/tmp/coverage") if !ENV['COVERAGE_REPORT'].blank?
         FileUtils.mkdir_p coverage_path
         coverage_path
       end
